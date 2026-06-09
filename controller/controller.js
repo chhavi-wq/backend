@@ -7,7 +7,7 @@ const transporter=nodemailer.createTransport({
     port:465,
     secure:true,
     auth:{
-        user:"schhavi625@gmail.com",
+        user:"abc@gmail.com",
         pass:"voii ptlv cmsb yuih" 
     }
 
@@ -130,7 +130,7 @@ if(!user){
       return res.status(401).json({ message: "Invalid OTP" });
     }
   user.otp = null;
-  await user.save()
+  await user.save ()
 res.status(200).json({message:"login sucessfully"})
     }
     catch{
@@ -138,4 +138,45 @@ res.status(200).json({message:"login sucessfully"})
     }
 }
 
-module.exports={Creates,login,loginwitheemail,loginwithOtp,verify}
+
+const getall=async(req,res)=>{
+    try{
+        const use=await User.find()
+        res.status(200).json({message:"all  user",use})
+
+    }
+    catch{
+          res.status(500).json({message:"internal server error"})
+    }
+}
+const getbyid=async(req,res)=>{
+    try{
+        const userid=req.params.id
+        const user=await User.findById(userid)
+        if(!user){
+            return res.status(404).json({message:"user not found"})
+        }
+        res.status(200).json({message:"user found",user})
+
+    }
+     catch{
+          res.status(500).json({message:"internal server error"})
+    }
+}
+
+const deleteuser=async(req,res)=>{
+    try{
+        const userid=req.params.id
+        const user=await User.findByIdAndDelete(userid)
+        if(!user){
+            return res.status(404).json({message:"user not found"})
+        }
+        res.status(200).json({message:"user deleted",user})
+
+    }
+     catch{
+          res.status(500).json({message:"internal server error"})
+    }
+}
+
+module.exports={Creates,login,loginwitheemail,loginwithOtp,verify ,getall,getbyid,deleteuser}
