@@ -20,6 +20,12 @@ const Userschema= new mongoose.Schema({
     },
     otp:{
         type:String
+    },
+    oldpass:{
+        type:String
+    },
+    newpass:{
+        type:String
     }
 })
 const user=mongoose.model("User",Userschema)

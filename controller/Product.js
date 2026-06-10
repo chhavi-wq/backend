@@ -64,5 +64,42 @@ const deleteproduct = async(req,res)=>{
     }
 }
 
-module.exports = {Product, getallproducts, getbyidproduct, deleteproduct}
+const searchProduct=async(req,res)=>{
+    try{
+        const {query} = req.query
+        const product = await Usser.find({
+            $or:[
+                {title:{$regex:query, $options:"i"}}
+            ]
+        })
+        if(!product){
+             return res.status(404).json({message:"product does not exist"})
+        }
+        res.status(200).json({message:"products found",product});
+    }
+    catch(err){
+     return res.status(500).json({message:"internal server error",err});
+    }
+}
+
+const updateProduct = async(req,res)=>{
+    try{
+        const productid= req.params.id;
+        const Product = await Usser.findByIdAndUpdate(
+            productid,
+            req.body,
+            {new:true}
+        )
+        if(!Product){
+            return res.status(404).json({message:"product not found"});
+        }
+        res.status(200).json({message:"product updated",Product});
+
+    }
+    catch{
+        return res.status(500).json({message:"internal server error"});
+    }
+}
+
+module.exports = {Product, getallproducts, getbyidproduct, deleteproduct,searchProduct,updateProduct}
 
