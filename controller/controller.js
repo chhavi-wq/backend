@@ -1,6 +1,7 @@
 const User=require("../model/model")
 const bcrypt=require("bcrypt")
 const nodemailer=require("nodemailer")
+const path=require("path")
 
 const transporter=nodemailer.createTransport({
     host:"smtp.gmail.com",
@@ -242,5 +243,62 @@ const updatepass=async(req,res)=>{
     }
 }
 
+// const uploadimage=async(req,res)=>{
+//     try{
+//         const userid=req.params.id
+//         const user=await User.findById(userid)
+//         if(!user){
+//             res.status(404).json({message:"not found"})
+//         }
+//         if(!req.file){
+//             res.status(401).json({message:"file  not upload"})
+//         }
+//         user.avatar=req.file.originalname
+//             await user.save();
 
-module.exports={Creates,login,updatuser,loginwitheemail,loginwithOtp,verify ,getall,getbyid,deleteuser,searchuser,updatepass}
+//         res.status(200).json({message:"file upload sccessfully"})
+
+//     }
+//     catch{
+//         res.status(500).json({message:"internal server error"})
+//     }
+// }
+
+const uploadimage = async (req, res) => {
+    try {
+        const userid = req.params.id;
+
+        const user = await User.findById(userid);
+        if (!user) {
+            return res.status(404).json({
+                message: "User not found"
+            });
+        }
+
+        if (!req.file) {
+            return res.status(400).json({
+                message: "No file uploaded"
+            });
+        }
+
+        // Save only file path or filename
+        user.avatar = req.file.path; 
+        await user.save();
+
+        return res.status(200).json({
+            message: "File uploaded successfully",
+            avatar: user.avatar
+        });
+
+    } catch (error) {
+        return res.status(500).json({
+            message: "Internal server error",
+            error: error.message
+        });
+    }
+};
+
+
+
+
+module.exports={Creates,login,updatuser,loginwitheemail,loginwithOtp,verify ,uploadimage,getall,getbyid,deleteuser,searchuser,updatepass}

@@ -16,6 +16,8 @@ const ApiSchema = new mongoose.Schema({
     id : {
         type : Number
     }
+   
+
 })
 
 const Usser = mongoose.model("Usser",ApiSchema);

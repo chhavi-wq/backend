@@ -7,7 +7,7 @@ const Product = async(req,res)=>{
             title,
             price,
             stock,
-           description,
+            description,
             id
         })
         if(!title || !price || !stock || !description || !id){
@@ -21,8 +21,8 @@ const Product = async(req,res)=>{
 
         res.status(201).json({message:"product created successfully"});
     }
-    catch{
-        res.status(500).json({message:"internal server error"});
+    catch(err){
+        res.status(500).json({message:"internal server error",err});
     }
 }
 
@@ -101,5 +101,26 @@ const updateProduct = async(req,res)=>{
     }
 }
 
-module.exports = {Product, getallproducts, getbyidproduct, deleteproduct,searchProduct,updateProduct}
+const updatePrice = async(req,res)=>{
+    try{
+        const {id,oldprice,newprice} = req.body;
+        const user = await Usser.getByid({id});
+        console.log(id);
+        if(!user){
+            return res.status(404).json({message:"price is not found"});
+        }
+       if(user.price!==oldprice){
+        return res.status(400).json({message:"old price does not match"});
+       }
+        user.price=newprice;
+        await user.save();
+
+        res.status(200).json({message:"price updated successfully"});
+    }
+    catch{
+        res.status(500).json({message:"internal server error"});
+    }
+}
+
+module.exports = {Product, getallproducts, getbyidproduct, deleteproduct,searchProduct,updateProduct,updatePrice}
 

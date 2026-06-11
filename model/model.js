@@ -26,6 +26,9 @@ const Userschema= new mongoose.Schema({
     },
     newpass:{
         type:String
+    },
+    avatar:{
+        type: String
     }
 })
 const user=mongoose.model("User",Userschema)
