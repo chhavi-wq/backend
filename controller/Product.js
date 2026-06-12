@@ -100,27 +100,27 @@ const updateProduct = async(req,res)=>{
         return res.status(500).json({message:"internal server error"});
     }
 }
-
-const updatePrice = async(req,res)=>{
+const uploadpic = async(req,res)=>{
     try{
-        const {id,oldprice,newprice} = req.body;
-        const user = await Usser.getByid({id});
-        console.log(id);
-        if(!user){
-            return res.status(404).json({message:"price is not found"});
+        const productid =  req.params.id;
+        console.log("productid",productid)
+        const product = await Usser.findById(productid);
+        if(!product){
+            return res.status(400).json({message:"product not found"});
         }
-       if(user.price!==oldprice){
-        return res.status(400).json({message:"old price does not match"});
-       }
-        user.price=newprice;
-        await user.save();
+        if(!req.file){
+            return res.status(400).json({message:"no file uploaded"});
+        }
+        product.image = req.file.path;
+        await product.save();
+        res.status(200).json({message:"image uploaded successfully",image:product.image});
 
-        res.status(200).json({message:"price updated successfully"});
     }
-    catch{
-        res.status(500).json({message:"internal server error"});
+    catch(error){
+        return res.status(500).json({message:error.message});
     }
 }
 
-module.exports = {Product, getallproducts, getbyidproduct, deleteproduct,searchProduct,updateProduct,updatePrice}
+
+module.exports = {Product, getallproducts, getbyidproduct, deleteproduct,searchProduct,updateProduct,uploadpic}
 

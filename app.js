@@ -1,5 +1,6 @@
 const express=require("express")
-
+const swaggerSpec=require("./swagger")
+const swaggerUi=require("swagger-ui-express")
 const mongoose=require("mongoose")
 const router=require("./routes/route")
 
@@ -9,6 +10,7 @@ const app=express()
 app.use(express.json())
 
 app.use("/api",router)
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 mongoose.connect("mongodb://localhost:27017/mydatabase")
 .then(()=>{

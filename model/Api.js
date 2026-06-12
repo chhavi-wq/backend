@@ -15,8 +15,10 @@ const ApiSchema = new mongoose.Schema({
     },
     id : {
         type : Number
+    },
+    image : {
+        type : String
     }
-   
 
 })
 

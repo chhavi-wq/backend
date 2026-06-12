@@ -29,7 +29,8 @@ const Userschema= new mongoose.Schema({
     },
     avatar:{
         type: String
-    }
+    },
+    
 })
 const user=mongoose.model("User",Userschema)
 module.exports=user
