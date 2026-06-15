@@ -28,7 +28,8 @@ const Userschema= new mongoose.Schema({
         type:String
     },
     avatar:{
-        type: String
+        type: [String],
+        default : [],
     },
     
 })

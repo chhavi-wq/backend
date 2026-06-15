@@ -275,14 +275,18 @@ const uploadimage = async (req, res) => {
             });
         }
 
-        if (!req.file) {
-            return res.status(400).json({
-                message: "No file uploaded"
-            });
+        // if (!req.file) {
+        //     return res.status(400).json({
+        //         message: "No file uploaded"
+        //     });
+        // }
+        if(!req.files || req.files.length === 0){
+            return res.status(400).json({message:"no files uploaded"});
         }
+        const imagePaths = req.files.map(file => file.path);
 
         // Save only file path or filename
-        user.avatar = req.file.path; 
+        user.avatar = imagePaths; 
         await user.save();
 
         return res.status(200).json({

@@ -3,12 +3,17 @@ const swaggerSpec=require("./swagger")
 const swaggerUi=require("swagger-ui-express")
 const mongoose=require("mongoose")
 const router=require("./routes/route")
+const cors=require("cors")
 
 const PORT=4000
 
 const app=express()
 app.use(express.json())
-
+app.use(
+  cors({
+    origin: "http://localhost:5176"
+  })
+);
 app.use("/api",router)
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
