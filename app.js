@@ -4,14 +4,14 @@ const swaggerUi=require("swagger-ui-express")
 const mongoose=require("mongoose")
 const router=require("./routes/route")
 const cors=require("cors")
-
-const PORT=4000
+require("dotenv").config();
+const PORT=process.env.PORT 
 
 const app=express()
 app.use(express.json())
 app.use(
   cors({
-    origin: "http://localhost:5176"
+    origin: "http://localhost:5173"            //install cors
   })
 );
 app.use("/api",router)
