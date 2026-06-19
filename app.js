@@ -25,7 +25,7 @@ mongoose.connect("mongodb://localhost:27017/mydatabase")
     console.log("not connected")
 })
 
-app.use("/uploads", express.static("uploads/assests"));
+app.use("/uploads/assests", express.static("uploads/assests"));
 
 app.listen(PORT,()=>{
     console.log(`app is listen on port ${PORT}`)

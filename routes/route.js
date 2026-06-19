@@ -1,7 +1,7 @@
 const express=require("express")
 const multer=require("multer")
 const {Product,getallproducts,getbyidproduct,deleteproduct, searchProduct,updateProduct,uploadpic} = require("../controller/Product");
-const { Creates, login, loginwitheemail, loginwithOtp, verify, getall, getbyid, deleteuser, searchuser, updatuser, updatepass, uploadimage } = require("../controller/controller")
+const { Creates, loginwitheemail, loginwithOtp, verify, getall, getbyid, deleteuser, searchuser, updatuser, updatepass, uploadimage } = require("../controller/controller")
 
 const router=express.Router()
 
@@ -68,54 +68,42 @@ const router=express.Router()
 router.post("/create",Creates)
 
 
-/**
- * @swagger
- * /api/login:
- *   post:
- *     summary: Login a user
- *     tags:
- *       - Login 
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             required:
- *               - email
- *               - password
- *             properties:
- *               email:
- *                 type: string
- *                 format: email
- *                 example: john@example.com
- *               password:
- *                 type: string
- *                 format: password
- *                 example: password123
- *     responses:
- *       201:
- *         description: User logged in successfully
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *                   example: user logged in successfully
- *                 newuser:
- *                   type: object
- *       400:
- *         description: Email already exists
- *       401:
- *         description: All fields required
- *       500:
- *         description: Internal server error
- */
+// /**
+//  * @swagger
+//  * /api/login:
+//  *   post:
+//  *     summary: Login user with email and password
+//  *     tags:
+//  *       - Auth
+//  *     requestBody:
+//  *       required: true
+//  *       content:
+//  *         application/json:
+//  *           schema:
+//  *             type: object
+//  *             required:
+//  *               - email
+//  *               - password
+//  *             properties:
+//  *               email:
+//  *                 type: string
+//  *                 example: john@example.com
+//  *               password:
+//  *                 type: string
+//  *                 format: password
+//  *                 example: password123
+//  *     responses:
+//  *       200:
+//  *         description: Login successful
+//  *       401:
+//  *         description: Invalid credentials
+//  *       404:
+//  *         description: User not found
+//  *       500:
+//  *         description: Internal server error
+//  */
 
-
-router.post("/login",login)
+// router.post("/login",login)
 
 /**
  * @swagger
@@ -208,7 +196,7 @@ router.post("/loginwitheemail",loginwitheemail)
  *         description: Internal server error
  */
 
-router.post("/loginwithotp",loginwithOtp)
+router.post("/loginwithotp",loginwithOtp);
 /**
  * @swagger
  * /api/verify:
