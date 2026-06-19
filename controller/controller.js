@@ -40,8 +40,9 @@ const newuser=new User({
 await newuser.save()
 res.status(201).json({message:"user creaete successfully",newuser})
     }
-    catch{
-         res.status(500).json({message:"internal server error"})
+    catch(error){
+        console.error("Creates error:", error)
+        res.status(500).json({message:"internal server error", error: error.message})
     }
 }
 
