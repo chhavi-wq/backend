@@ -16,17 +16,19 @@ app.use(
 );
 app.use("/api",router)
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
-
-mongoose.connect("mongodb://localhost:27017/mydatabase")
-.then(()=>{
-    console.log("connected")
-})
-.catch(()=>{
-    console.log("not connected")
-})
-
 app.use("/uploads/assests", express.static("uploads/assests"));
 
-app.listen(PORT,()=>{
-    console.log(`app is listen on port ${PORT}`)
-})
+const mongoUrl = "mongodb://localhost:27017/mydatabase";
+
+mongoose.connect(mongoUrl, { serverSelectionTimeoutMS: 10000 })
+  .then(() => {
+    console.log("connected to MongoDB")
+    app.listen(PORT, () => {
+      console.log(`app is listening on port ${PORT}`)
+    })
+  })
+  .catch((error) => {
+    console.error("MongoDB connection error:", error.message)
+    console.error(error)
+    process.exit(1)
+  })
