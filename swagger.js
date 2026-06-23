@@ -9,8 +9,9 @@ const swaggerDefinition = {
   },
   servers: [
     {
-      url: "https://backend-fiyc.onrender.com",
+      url: "http://localhost:4000",
     },
+
   ],
 };
 
