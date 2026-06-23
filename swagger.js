@@ -11,6 +11,9 @@ const swaggerDefinition = {
     {
       url: "http://localhost:4000",
     },
+    {
+      url: "https://backend-fiyc.onrender.com",
+    }
 
   ],
 };
