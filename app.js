@@ -19,7 +19,7 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.use("/uploads/assests", express.static("uploads/assests"));
 
 const mongoUrl = process.env.MONGO_URL
-// console.log(mongoUrl)
+console.log(mongoUrl)
 
 mongoose.connect(mongoUrl, { serverSelectionTimeoutMS: 10000 })
   .then(() => {
