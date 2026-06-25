@@ -11,7 +11,7 @@ const app = express()
 app.use(express.json())
 app.use(
   cors({
-    origin: "http://localhost:5173"            //install cors
+    origin: "https://reactmain-bru4.vercel.app"            //install cors
   })
 );
 app.use("/api", router)
