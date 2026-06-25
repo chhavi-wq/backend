@@ -18,7 +18,11 @@ app.use("/api", router)
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.use("/uploads/assests", express.static("uploads/assests"));
 
-const mongoUrl = process.env.MONGO_URL
+const mongoUrl = process.env.MONGO_URL?.trim()
+if (!mongoUrl) {
+  console.error("MONGO_URL is not set in .env")
+  process.exit(1)
+}
 console.log(mongoUrl)
 
 mongoose.connect(mongoUrl, { serverSelectionTimeoutMS: 10000 })
